@@ -1,0 +1,104 @@
+[gd_scene load_steps=10 format=3 uid="uid://dn8bno1btjk54"]
+
+[ext_resource type="Script" uid="uid://cfbu0quq360f2" path="res://Scripts/demon.gd" id="1_fiwpc"]
+[ext_resource type="Texture2D" uid="uid://ceim6fx2whlkm" path="res://Sprites/Player/People.tres" id="1_ukkyb"]
+[ext_resource type="Script" uid="uid://btivnuoef03c1" path="res://Scripts/state_machine.gd" id="3_li3uk"]
+[ext_resource type="Script" uid="uid://dqbetnmebskw7" path="res://Scripts/enemy_idle.gd" id="4_30acj"]
+[ext_resource type="Script" uid="uid://cuus3hptj1grn" path="res://Scripts/enemy_follow.gd" id="5_sku76"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fiwpc"]
+size = Vector2(7, 8)
+
+[sub_resource type="Animation" id="Animation_ydh87"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_sku76"]
+resource_name = "walk"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, -3), Vector2(0, 0), Vector2(-1, -3), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.162316, 0.0, -0.162316, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jagv4"]
+_data = {
+&"RESET": SubResource("Animation_ydh87"),
+&"walk": SubResource("Animation_sku76")
+}
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_fiwpc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ukkyb")
+hframes = 32
+vframes = 27
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_fiwpc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_jagv4")
+}
+speed_scale = 2.0
+
+[node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_li3uk")
+initial_state = NodePath("EnemyIdle")
+
+[node name="EnemyIdle" type="Node" parent="State Machine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("4_30acj")
+enemy = NodePath("../..")
+metadata/_custom_type_script = "uid://dqbetnmebskw7"
+
+[node name="EnemyFollow" type="Node" parent="State Machine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("5_sku76")
+enemy = NodePath("../..")
+metadata/_custom_type_script = "uid://cuus3hptj1grn"

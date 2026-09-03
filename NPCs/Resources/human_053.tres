@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="NPC" load_steps=3 format=3]
+
+[ext_resource type="Script" uid="uid://cisshs8bvcbqd" path="res://Scripts/npc.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://Sprites/Characters/char_053.png" id="2_texture"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_script")
+texture = ExtResource("2_texture")
+group = "human_053"
+faction = 1
+health = 29
+speed = 25.7
+accel = 8.3
+damage = 0
+metadata/_custom_type_script = "uid://cisshs8bvcbqd"

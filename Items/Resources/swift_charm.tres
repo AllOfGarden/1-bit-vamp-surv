@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://b5gvcws74d1gj"]
+
+[ext_resource type="Script" uid="uid://coyvfyyt1m3oh" path="res://Scripts/item.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://d1d127clpogg1" path="res://Sprites/Misc/Misc.png" id="2_tex"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swift_charm"]
+atlas = ExtResource("2_tex")
+region = Rect2(30, 40, 10, 20)
+
+[resource]
+script = ExtResource("1_script")
+item_name = "Swift Charm"
+icon = SubResource("AtlasTexture_swift_charm")
+description = "Hums faintly. Your steps feel lighter."
+speed_bonus = 25.0

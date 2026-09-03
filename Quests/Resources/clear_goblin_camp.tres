@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Quest" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/quest.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+quest_name = "Clear the Goblin Camp"
+description = "Goblins have been raiding the road west of town. Thin out their camp."
+objective_type = 0
+target_group = "goblin"
+target_amount = 5

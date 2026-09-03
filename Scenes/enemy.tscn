@@ -1,0 +1,105 @@
+[gd_scene load_steps=16 format=3 uid="uid://dn8bno1btjk54"]
+
+[ext_resource type="Script" uid="uid://cfbu0quq360f2" path="res://Scripts/demon.gd" id="1_fiwpc"]
+[ext_resource type="Resource" uid="uid://coalu5nuakeuq" path="res://Enemies/Resources/demon.tres" id="2_haro7"]
+[ext_resource type="Script" uid="uid://cmlhpbxg672rr" path="res://Scripts/hurtbox.gd" id="3_8uf12"]
+[ext_resource type="Script" uid="uid://btivnuoef03c1" path="res://Scripts/Enemy State Machine/state_machine.gd" id="3_li3uk"]
+[ext_resource type="Script" uid="uid://dqbetnmebskw7" path="res://Scripts/Enemy State Machine/enemy_idle.gd" id="4_30acj"]
+[ext_resource type="AnimationLibrary" uid="uid://b5qrsmfao4px5" path="res://Animations/NPC Animations.res" id="4_haro7"]
+[ext_resource type="Script" uid="uid://ct2hnrjl6v2up" path="res://Scripts/enemy_hitbox.gd" id="5_56vhr"]
+[ext_resource type="Script" uid="uid://cuus3hptj1grn" path="res://Scripts/Enemy State Machine/enemy_chase.gd" id="5_sku76"]
+[ext_resource type="Script" uid="uid://b5d1bhfwugljk" path="res://Scripts/Enemy State Machine/enemy_attack.gd" id="6_ghaa6"]
+[ext_resource type="Script" uid="uid://df4wlj6rx7jyv" path="res://Scripts/vision.gd" id="7_1dp5w"]
+[ext_resource type="Script" uid="uid://6a8gpj5uwih" path="res://Scripts/Enemy State Machine/take_damage.gd" id="8_po0sg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_haro7"]
+radius = 3.0
+height = 10.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_po0sg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8uf12"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ghaa6"]
+radius = 73.0069
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_fiwpc")
+stats = ExtResource("2_haro7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -5)
+offset = Vector2(-1, 0)
+
+[node name="AnimFlip" type="Node2D" parent="Sprite2D"]
+position = Vector2(0, -5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/AnimFlip"]
+libraries = {
+&"NPC Animations": ExtResource("4_haro7")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -5)
+shape = SubResource("CapsuleShape2D_haro7")
+
+[node name="Hitbox" type="Area2D" parent="."]
+visible = false
+collision_mask = 6
+script = ExtResource("5_56vhr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_po0sg")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 6
+script = ExtResource("3_8uf12")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_8uf12")
+
+[node name="Vision" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 6
+monitorable = false
+script = ExtResource("7_1dp5w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_ghaa6")
+
+[node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_li3uk")
+initial_state = NodePath("EnemyIdle")
+
+[node name="EnemyIdle" type="Node" parent="State Machine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("4_30acj")
+enemy = NodePath("../..")
+metadata/_custom_type_script = "uid://dqbetnmebskw7"
+
+[node name="EnemyChase" type="Node" parent="State Machine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("5_sku76")
+enemy = NodePath("../..")
+metadata/_custom_type_script = "uid://cuus3hptj1grn"
+
+[node name="EnemyAttack" type="Node" parent="State Machine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("6_ghaa6")
+enemy = NodePath("../..")
+
+[node name="TakeDamage" type="Node" parent="State Machine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("8_po0sg")
+enemy = NodePath("../..")
+
+[connection signal="body_entered" from="Hitbox" to="Hitbox" method="_on_body_entered"]
+[connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
+[connection signal="body_entered" from="Vision" to="Vision" method="_on_body_entered"]
+[connection signal="body_exited" from="Vision" to="Vision" method="_on_body_exited"]

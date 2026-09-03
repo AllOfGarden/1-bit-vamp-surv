@@ -1,0 +1,173 @@
+[gd_scene load_steps=19 format=3 uid="uid://dcrt1jv0yi465"]
+
+[ext_resource type="Script" uid="uid://dqprs81tbgn4x" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Script" path="res://Scripts/inventory.gd" id="100_inv"]
+[ext_resource type="Script" path="res://Scripts/spell_caster.gd" id="101_spellcaster"]
+[ext_resource type="Resource" path="res://Spells/Resources/fireball.tres" id="102_fireball"]
+[ext_resource type="Texture2D" uid="uid://bdr3a21jgqhvg" path="res://Sprites/Characters/char_000.png" id="2_vgqql"]
+[ext_resource type="Texture2D" uid="uid://mjo3ehskxdiw" path="res://Sprites/Items/Weapons.tres" id="3_6t5aa"]
+[ext_resource type="Script" uid="uid://lo8mw147vd2s" path="res://Scenes/player_hitbox.gd" id="4_vgqql"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vgqql"]
+radius = 3.0
+height = 10.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgqql"]
+atlas = ExtResource("3_6t5aa")
+filter_clip = true
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6t5aa"]
+radius = 8.83883
+height = 38.8909
+
+[sub_resource type="Animation" id="Animation_6t5aa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_cvnsp"]
+resource_name = "walk"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -5), Vector2(1, -8), Vector2(0, -5), Vector2(-1, -8), Vector2(0, -5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.162898, 0.0, -0.162316, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vgqql"]
+_data = {
+&"RESET": SubResource("Animation_6t5aa"),
+&"walk": SubResource("Animation_cvnsp")
+}
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_6t5aa"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vgqql"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fkybt"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_x3wgy"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_vgqql")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_fkybt")
+blend_point_1/pos = 1.0
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_x3wgy"]
+graph_offset = Vector2(-511, 48)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_6t5aa")
+nodes/TimeScale/position = Vector2(80, 120)
+nodes/Walking/node = SubResource("AnimationNodeBlendSpace1D_x3wgy")
+nodes/Walking/position = Vector2(-160, 100)
+node_connections = [&"TimeScale", 0, &"Walking", &"output", 0, &"TimeScale"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_cvnsp")
+move_speed = 50.0
+equipped_spell = ExtResource("102_fireball")
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("100_inv")
+
+[node name="SpellCaster" type="Node" parent="."]
+script = ExtResource("101_spellcaster")
+known_spells = [ExtResource("102_fireball")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -5)
+shape = SubResource("CapsuleShape2D_vgqql")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(0, -5)
+texture = ExtResource("2_vgqql")
+offset = Vector2(-1, 0)
+region_rect = Rect2(0, 0, 160.514, 270.73)
+region_filter_clip_enabled = true
+
+[node name="Weapon" type="Sprite2D" parent="."]
+position = Vector2(7, -5)
+texture = SubResource("AtlasTexture_vgqql")
+centered = false
+offset = Vector2(0, -10)
+hframes = 13
+vframes = 11
+frame = 10
+script = ExtResource("4_vgqql")
+
+[node name="Hitbox" type="Area2D" parent="Weapon"]
+collision_layer = 2
+collision_mask = 5
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/Hitbox"]
+position = Vector2(6, -6)
+rotation = 0.785398
+scale = Vector2(0.4, 0.4)
+shape = SubResource("CapsuleShape2D_6t5aa")
+disabled = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+callback_mode_process = 0
+libraries = {
+&"": SubResource("AnimationLibrary_vgqql")
+}
+speed_scale = 2.0
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendTree_x3wgy")
+anim_player = NodePath("../AnimationPlayer")
+parameters/TimeScale/scale = 3.0
+parameters/Walking/blend_position = -0.998949
+
+[connection signal="body_entered" from="Weapon/Hitbox" to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Weapon/Hitbox" to="Weapon" method="_on_hitbox_body_entered"]

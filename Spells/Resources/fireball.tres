@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=4 format=3 uid="uid://c83if7pmgi3y8"]
+
+[ext_resource type="Script" uid="uid://bado4f74e7wqr" path="res://Scripts/spell.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bt226wev8a3kq" path="res://Sprites/Items/Potions.png" id="2_tex"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fireball"]
+atlas = ExtResource("2_tex")
+region = Rect2(0, 20, 10, 10)
+
+[resource]
+script = ExtResource("1_script")
+spell_name = "Fireball"
+icon = SubResource("AtlasTexture_fireball")
+mana_cost = 15
+cooldown = 0.6
+damage = 12
+projectile_speed = 260.0

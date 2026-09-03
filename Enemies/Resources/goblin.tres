@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="NPC" load_steps=5 format=3 uid="uid://cbgslwd2emtuq"]
+
+[ext_resource type="Script" uid="uid://cisshs8bvcbqd" path="res://Scripts/npc.gd" id="1_n32jh"]
+[ext_resource type="Texture2D" uid="uid://cf85jyw8vg56i" path="res://Sprites/Creatures/creature_080.png" id="2_p724x"]
+[ext_resource type="Resource" path="res://Items/Resources/rusty_dagger.tres" id="3_dagger"]
+[ext_resource type="Resource" path="res://Items/Resources/leather_vest.tres" id="4_vest"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_n32jh")
+texture = ExtResource("2_p724x")
+group = "goblin"
+faction = 3
+health = 30
+speed = 30.0
+accel = 10.0
+damage = 5
+drop_table = [ExtResource("3_dagger"), ExtResource("4_vest")]
+drop_chance = 0.5
+metadata/_custom_type_script = "uid://cisshs8bvcbqd"
