@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://4fiw5m1000is"]
+[gd_scene load_steps=21 format=4 uid="uid://4fiw5m1000is"]
 
 [ext_resource type="TileSet" uid="uid://dswqy7ghu0ynr" path="res://Sprites/Terrain/Natural.tres" id="1_go701"]
 [ext_resource type="PackedScene" uid="uid://dcrt1jv0yi465" path="res://Scenes/player.tscn" id="2_go701"]
@@ -7,12 +7,16 @@
 [ext_resource type="Script" uid="uid://dni7ub1vroiem" path="res://Scripts/map_zone.gd" id="4_zone"]
 [ext_resource type="Resource" uid="uid://coalu5nuakeuq" path="res://Enemies/Resources/demon.tres" id="5_demon"]
 [ext_resource type="Resource" uid="uid://cbgslwd2emtuq" path="res://Enemies/Resources/goblin.tres" id="6_goblin"]
-[ext_resource type="PackedScene" path="res://Scenes/party_member.tscn" id="7_party"]
+[ext_resource type="PackedScene" uid="uid://bekoudwwc8cuk" path="res://Scenes/party_member.tscn" id="7_party"]
 [ext_resource type="Resource" path="res://Enemies/Resources/creature_071.tres" id="8_archer"]
 [ext_resource type="PackedScene" path="res://Scenes/party_ui.tscn" id="9_ui"]
 [ext_resource type="Script" uid="uid://coyvfyyt1m3oh" path="res://Scripts/item.gd" id="10_c5t2i"]
 [ext_resource type="PackedScene" path="res://Scenes/hotbar_ui.tscn" id="10_hotbar"]
 [ext_resource type="Texture2D" uid="uid://6ue146hsg2dp" path="res://Sprites/Characters/char_005.png" id="11_e0ngr"]
+[ext_resource type="Script" uid="uid://chjwk0h0jr28k" path="res://Scripts/hud_party_roster.gd" id="14_hgpy0"]
+[ext_resource type="Script" uid="uid://cy6iet311xqsf" path="res://Scripts/hud_stats.gd" id="15_t2t4p"]
+[ext_resource type="Script" uid="uid://2imea2jbyuqn" path="res://Scripts/hud_zone_indicator.gd" id="16_0pcbe"]
+[ext_resource type="PackedScene" uid="uid://tkwvitw2st5q" path="res://Scenes/inventory.tscn" id="17_t2t4p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_zone1"]
 size = Vector2(600, 600)
@@ -73,3 +77,20 @@ stats = SubResource("Resource_kn0ld")
 [node name="PartyUI" parent="." instance=ExtResource("9_ui")]
 
 [node name="HotbarUI" parent="." instance=ExtResource("10_hotbar")]
+
+[node name="PartyRosterUI" type="CanvasLayer" parent="."]
+script = ExtResource("14_hgpy0")
+
+[node name="StatsUI" type="CanvasLayer" parent="."]
+script = ExtResource("15_t2t4p")
+
+[node name="ZoneIndicatorUI" type="CanvasLayer" parent="."]
+script = ExtResource("16_0pcbe")
+
+[node name="InventoryUI" type="CanvasLayer" parent="."]
+
+[node name="Inventory" parent="InventoryUI" instance=ExtResource("17_t2t4p")]
+offset_left = -159.0
+offset_top = 65.0
+offset_right = -159.0
+offset_bottom = 65.0

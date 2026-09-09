@@ -1,12 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://dcrt1jv0yi465"]
+[gd_scene load_steps=20 format=3 uid="uid://dcrt1jv0yi465"]
 
 [ext_resource type="Script" uid="uid://dqprs81tbgn4x" path="res://Scripts/player.gd" id="1_cvnsp"]
-[ext_resource type="Script" path="res://Scripts/inventory.gd" id="100_inv"]
-[ext_resource type="Script" path="res://Scripts/spell_caster.gd" id="101_spellcaster"]
-[ext_resource type="Resource" path="res://Spells/Resources/fireball.tres" id="102_fireball"]
 [ext_resource type="Texture2D" uid="uid://bdr3a21jgqhvg" path="res://Sprites/Characters/char_000.png" id="2_vgqql"]
 [ext_resource type="Texture2D" uid="uid://mjo3ehskxdiw" path="res://Sprites/Items/Weapons.tres" id="3_6t5aa"]
-[ext_resource type="Script" uid="uid://lo8mw147vd2s" path="res://Scenes/player_hitbox.gd" id="4_vgqql"]
+[ext_resource type="Script" uid="uid://lo8mw147vd2s" path="res://Scripts/player_hitbox.gd" id="4_vgqql"]
+[ext_resource type="Script" uid="uid://bado4f74e7wqr" path="res://Scripts/spell.gd" id="5_8erm5"]
+[ext_resource type="Script" uid="uid://wrtpcqf60m74" path="res://Scripts/inventory.gd" id="100_inv"]
+[ext_resource type="Script" uid="uid://37k0wu3c77p5" path="res://Scripts/spell_caster.gd" id="101_spellcaster"]
+[ext_resource type="Resource" uid="uid://c83if7pmgi3y8" path="res://Spells/Resources/fireball.tres" id="102_fireball"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vgqql"]
 radius = 3.0
@@ -102,10 +103,10 @@ nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_6t5aa")
 nodes/TimeScale/position = Vector2(80, 120)
 nodes/Walking/node = SubResource("AnimationNodeBlendSpace1D_x3wgy")
 nodes/Walking/position = Vector2(-160, 100)
-node_connections = [&"TimeScale", 0, &"Walking", &"output", 0, &"TimeScale"]
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Walking"]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
-collision_layer = 2
+collision_layer = 3
 motion_mode = 1
 script = ExtResource("1_cvnsp")
 move_speed = 50.0
@@ -116,10 +117,9 @@ script = ExtResource("100_inv")
 
 [node name="SpellCaster" type="Node" parent="."]
 script = ExtResource("101_spellcaster")
-known_spells = [ExtResource("102_fireball")]
+known_spells = Array[ExtResource("5_8erm5")]([ExtResource("102_fireball")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -5)
 shape = SubResource("CapsuleShape2D_vgqql")
 

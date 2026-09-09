@@ -1,11 +1,11 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3 uid="uid://c5ix8gusapna"]
 
-[ext_resource type="Script" path="res://Scripts/projectile.gd" id="1_proj"]
-[ext_resource type="Texture2D" uid="uid://dfvqr6rnqgupm" path="res://Sprites/Terrain/Natural.png" id="2_tex"]
+[ext_resource type="Script" uid="uid://dlwyle2xww8ea" path="res://Scripts/projectile.gd" id="1_proj"]
+[ext_resource type="Texture2D" uid="uid://d2fg28xjyp7bn" path="res://Sprites/UI/UI.png" id="2_yr2qt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bolt"]
-atlas = ExtResource("2_tex")
-region = Rect2(0, 190, 10, 10)
+atlas = ExtResource("2_yr2qt")
+region = Rect2(20, 171, 9, 9)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_proj"]
 radius = 3.0

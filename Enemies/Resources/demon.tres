@@ -1,20 +1,20 @@
-[gd_resource type="Resource" script_class="NPC" load_steps=5 format=3 uid="uid://coalu5nuakeuq"]
+[gd_resource type="Resource" script_class="NPC" load_steps=6 format=3 uid="uid://coalu5nuakeuq"]
 
 [ext_resource type="Script" uid="uid://cisshs8bvcbqd" path="res://Scripts/npc.gd" id="1_7k882"]
-[ext_resource type="Texture2D" uid="uid://jxgn3inufdib" path="res://Sprites/Creatures/creature_074.png" id="2_rw7q8"]
-[ext_resource type="Resource" path="res://Items/Resources/iron_shortsword.tres" id="3_sword"]
-[ext_resource type="Resource" path="res://Items/Resources/swift_charm.tres" id="4_charm"]
+[ext_resource type="Script" uid="uid://coyvfyyt1m3oh" path="res://Scripts/item.gd" id="1_hkgxj"]
+[ext_resource type="Resource" uid="uid://d0lx46nmjaxw0" path="res://Items/Resources/iron_shortsword.tres" id="3_sword"]
+[ext_resource type="Resource" uid="uid://b5gvcws74d1gj" path="res://Items/Resources/swift_charm.tres" id="4_charm"]
+[ext_resource type="Texture2D" uid="uid://cqyww1nm07sbf" path="res://Sprites/Creatures/creature_076.png" id="5_moq02"]
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_7k882")
-texture = ExtResource("2_rw7q8")
+texture = ExtResource("5_moq02")
 group = "demon"
 faction = 2
 health = 50
 speed = 20.0
 accel = 10.0
 damage = 10
-drop_table = [ExtResource("3_sword"), ExtResource("4_charm")]
-drop_chance = 0.5
+drop_table = Array[ExtResource("1_hkgxj")]([ExtResource("3_sword"), ExtResource("4_charm")])
 metadata/_custom_type_script = "uid://cisshs8bvcbqd"

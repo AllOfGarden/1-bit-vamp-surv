@@ -5,7 +5,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fireball"]
 atlas = ExtResource("2_tex")
-region = Rect2(0, 20, 10, 10)
+region = Rect2(31, 1, 8, 9)
 
 [resource]
 script = ExtResource("1_script")

@@ -25,8 +25,6 @@ radius = 6.0
 radius = 73.0069
 
 [node name="Enemy" type="CharacterBody2D"]
-collision_layer = 4
-collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_fiwpc")
 stats = ExtResource("2_haro7")
@@ -44,12 +42,10 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -5)
 shape = SubResource("CapsuleShape2D_haro7")
 
 [node name="Hitbox" type="Area2D" parent="."]
-visible = false
 collision_mask = 6
 script = ExtResource("5_56vhr")
 
@@ -67,7 +63,6 @@ position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_8uf12")
 
 [node name="Vision" type="Area2D" parent="."]
-visible = false
 collision_layer = 4
 collision_mask = 6
 monitorable = false

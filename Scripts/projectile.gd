@@ -30,6 +30,7 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
+	print(body)
 	if body == shooter:
 		return  # spawns inside the caster's own shape - ignore, don't even destroy on this
 	if body.has_method("got_hit"):

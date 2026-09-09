@@ -200,7 +200,7 @@ func spawn_enemy(stats: NPC):
 	add_sibling(spawned_enemy)
 	spawned_enemy.global_position = get_global_mouse_position()
 
-func got_hit(attacker):
+func got_hit(attacker) -> void:
 	health -= attacker.damage
 
 func _on_body_entered(body: Node2D) -> void:

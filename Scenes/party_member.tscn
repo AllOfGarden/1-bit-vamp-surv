@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=8 format=3 uid="uid://bekoudwwc8cuk"]
 
 [ext_resource type="Script" uid="uid://liwcac0fm77l" path="res://Scripts/party_member.gd" id="1_pm"]
 [ext_resource type="Resource" path="res://NPCs/Resources/human_005.tres" id="2_stats"]
@@ -16,7 +16,6 @@ radius = 8.0
 radius = 60.0
 
 [node name="PartyMember" type="CharacterBody2D"]
-collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_pm")
 stats = ExtResource("2_stats")
@@ -26,7 +25,6 @@ position = Vector2(0, -5)
 offset = Vector2(-1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -5)
 shape = SubResource("CapsuleShape2D_body")
 
@@ -34,9 +32,8 @@ shape = SubResource("CapsuleShape2D_body")
 zoom = Vector2(3, 3)
 
 [node name="Hitbox" type="Area2D" parent="."]
-visible = false
 collision_layer = 2
-collision_mask = 5
+collision_mask = 4
 script = ExtResource("3_hitbox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
